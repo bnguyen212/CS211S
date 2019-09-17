@@ -3,23 +3,13 @@ public class Tablet extends Phone {
 
   public static final boolean DEFAULT_CONNECTIVITY = false; // WiFi only
 
-  /*
-   * Screen Sizes:
-   * iPad Mini 7.9
-   * iPad 9.7
-   * iPad Air 10.5
-   * iPad Pro 11
-   * iPad Pro 12.9
-   * Colors: silver, space gray, gold
-   */
-
-  public Tablet(String model, double price, double screenSize, int storageCapacity, String color, String authentication, boolean cellularConnectivity) {
-    super(model, price, screenSize, storageCapacity, color, authentication);
+  public Tablet(String model, double price, Screen size, StorageCapacity capacity, Phone.Color color, Authentication authentication, boolean cellularConnectivity) {
+    super(model, price, size, capacity, color, authentication);
     this.cellularConnectivity = cellularConnectivity;
   }
 
-  public Tablet(String model, double price, double screenSize, int storageCapacity, String color, String authentication) {
-    this(model, price, screenSize, storageCapacity, color, authentication, DEFAULT_CONNECTIVITY);
+  public Tablet(String model, double price, Screen size, StorageCapacity capacity, Phone.Color color, Authentication authentication) {
+    this(model, price, size, capacity, color, authentication, DEFAULT_CONNECTIVITY);
   }
 
   public boolean getCellularConnectivity() {

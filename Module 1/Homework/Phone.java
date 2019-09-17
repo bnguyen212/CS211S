@@ -1,51 +1,40 @@
 public class Phone extends AppleDevice {
-  private double screenSize;
-  private int storageCapacity; // 64, 128, 256, 512, 1024
-  private String color; // Silver, Space Gray, Gold, Rose Gold, Black, Blue, White, Yellow, Red
-  private String authentication; // Face ID, Touch ID
+  // M2 HOMEWORK ENUM
+  private Screen screenSize;
+  private StorageCapacity storageCapacity;
+  private Color color;
+  private Authentication authentication;
 
   public static final int DEFAULT_CAPACITY = 64;
 
-  /*
-   * Screen Sizes
-   * XS Max 6.5 Face ID
-   * XS X 5.8 Face ID
-   * XR 6.1 Face ID
-   * 8+ 7+ 6S+ 6+ 5.5 Touch ID
-   * 8 7 6S 6 4.7 Touch ID
-   * SE 4 Touch ID
-   * Colors: silver, space gray, gold // blue white black yellow coral red // rose gold (6S SE 7)
-   */
+  // M2 HOMEWORK ENUM
+  public enum Color { SILVER, SPACE_GRAY, GOLD, ROSE_GOLD, BLACK, BLUE, WHITE, YELLOW, RED}
 
-  public Phone(String model, double price, double screenSize, int storageCapacity, String color, String authentication) {
+  public Phone(String model, double price, Screen size, StorageCapacity capacity, Color color, Authentication auth) {
     super(model, price);
-    this.screenSize = screenSize;
-    this.storageCapacity = storageCapacity;
+    this.screenSize = size;
+    this.storageCapacity = capacity;
     this.color = color;
-    this.authentication = authentication;
-  }
-
-  public Phone(String model, double price, double screenSize, String color, String authentication) {
-    this(model, price, screenSize, DEFAULT_CAPACITY, color, authentication);
+    this.authentication = auth;
   }
 
   /*
    * No setter methods as screen size, color, storage capacity, and authentication are not modifiable.
    */
 
-  public int getStorageCapacity() {
+  public StorageCapacity getStorageCapacity() {
     return storageCapacity;
   }
 
-  public String getColor() {
+  public Color getColor() {
     return color;
   }
 
-  public double getScreenSize() {
+  public Screen getScreenSize() {
     return screenSize;
   }
 
-  public String getAuthentication() {
+  public Authentication getAuthentication() {
     return authentication;
   }
 
@@ -56,25 +45,24 @@ public class Phone extends AppleDevice {
   @Override
   public String toString() {
     String s = super.toString();
-    s += "\nScreen: " + screenSize + "\"";
+    s += "\nScreen: " + screenSize;
     s += "\nColor: " + color;
-    s += "\nCapacity: " + storageCapacity + "GB";
-    s += "\nAuthentication: " + authentication;
+    s += "\nCapacity: " + storageCapacity;
+    s += "\nAuthentication: " + authentication + "\n";
     return s;
   }
 
   /*
-   * Two handheld devices are the same if they have the same model, release year, screen size, storage capacity, color, and authentication method
+   * Two phones are the considered equal if they have the same model, release year, screen size, storage capacity, and authentication method
    */
   @Override
   public boolean equals(Object obj) {
     if (obj instanceof Phone) {
       Phone device = (Phone) obj;
       Boolean check = super.equals(obj);
-      return check && device.screenSize == screenSize
-                   && device.storageCapacity == storageCapacity
-                   && device.color == color
-                   && device.authentication == authentication;
+      return check && device.screenSize.equals(screenSize)
+                   && device.storageCapacity.equals(storageCapacity)
+                   && device.authentication.equals(authentication);
     }
     return false;
   }
