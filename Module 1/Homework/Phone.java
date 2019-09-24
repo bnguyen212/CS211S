@@ -4,18 +4,24 @@ public class Phone extends AppleDevice {
   private StorageCapacity storageCapacity;
   private Color color;
   private Authentication authentication;
+  private Caller caller;
 
   public static final int DEFAULT_CAPACITY = 64;
 
   // M2 HOMEWORK ENUM
-  public enum Color { SILVER, SPACE_GRAY, GOLD, ROSE_GOLD, BLACK, BLUE, WHITE, YELLOW, RED}
+  public enum Color { SILVER, SPACE_GRAY, GOLD, MIDNIGHT_GREEN, ROSE_GOLD, BLACK, BLUE, WHITE, YELLOW, RED}
 
-  public Phone(String model, double price, Screen size, StorageCapacity capacity, Color color, Authentication auth) {
+  public Phone(String model, double price, Screen size, StorageCapacity capacity, Color color, Authentication auth, Caller caller) {
     super(model, price);
     this.screenSize = size;
     this.storageCapacity = capacity;
     this.color = color;
     this.authentication = auth;
+    this.caller = caller;
+  }
+
+  public Phone(String model, double price, Screen size, StorageCapacity capacity, Color color, Authentication auth) {
+    this(model, price, size, capacity, color, auth, new CellularCaller());
   }
 
   /*
@@ -39,7 +45,7 @@ public class Phone extends AppleDevice {
   }
 
   public void call(String contactName) {
-    System.out.println("Calling " + contactName + "...");
+    caller.call(contactName);
   }
 
   @Override
@@ -48,7 +54,7 @@ public class Phone extends AppleDevice {
     s += "\nScreen: " + screenSize;
     s += "\nColor: " + color;
     s += "\nCapacity: " + storageCapacity;
-    s += "\nAuthentication: " + authentication + "\n";
+    s += "\nAuthentication: " + authentication;
     return s;
   }
 

@@ -4,7 +4,7 @@ public class Tablet extends Phone {
   public static final boolean DEFAULT_CONNECTIVITY = false; // WiFi only
 
   public Tablet(String model, double price, Screen size, StorageCapacity capacity, Phone.Color color, Authentication authentication, boolean cellularConnectivity) {
-    super(model, price, size, capacity, color, authentication);
+    super(model, price, size, capacity, color, authentication, cellularConnectivity ? new CellularCaller() : new WifiCaller());
     this.cellularConnectivity = cellularConnectivity;
   }
 

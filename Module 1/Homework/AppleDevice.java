@@ -1,6 +1,7 @@
 import java.util.Calendar;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Comparator;
 
 public abstract class AppleDevice implements Comparable<AppleDevice> {
   private String model;
@@ -15,11 +16,35 @@ public abstract class AppleDevice implements Comparable<AppleDevice> {
   private static int totalCreated = 0;
   private static int totalSold = 0;
 
-  public AppleDevice(String model, double price) {
+  public final static Comparator<AppleDevice> MODEL_COMPARATOR = new AppleDeviceModelComparator();
+
+  public final static Comparator<AppleDevice> PRICE_COMPARATOR = new AppleDevicePriceComparator();
+
+  private static class AppleDeviceModelComparator implements Comparator<AppleDevice> {
+
+    @Override
+    public int compare(AppleDevice device1, AppleDevice device2) {
+      return device1.model.compareToIgnoreCase(device2.model);
+    }
+  }
+
+  private static class AppleDevicePriceComparator implements Comparator<AppleDevice> {
+
+    @Override
+    public int compare(AppleDevice device1, AppleDevice device2) {
+      return device1.price.compareTo(device2.price);
+    }
+  }
+
+  public AppleDevice(String model, double price, int year) {
     this.model = model;
     this.price = new BigDecimal(price).setScale(DECIMALS, ROUNDING_MODE);
-    this.releaseYear = Calendar.getInstance().get(Calendar.YEAR);
+    this.releaseYear = year;
     AppleDevice.totalCreated += 1;
+  }
+
+  public AppleDevice(String model, double price) {
+    this(model, price, Calendar.getInstance().get(Calendar.YEAR));
   }
 
   public String getModel() {
@@ -62,7 +87,7 @@ public abstract class AppleDevice implements Comparable<AppleDevice> {
 
   @Override
   public String toString() {
-    String str = "Device Model: " + model;
+    String str = "\n\nDevice Model: " + model;
     str += "\nPrice: $" + price;
     str += "\nRelease Year: " + releaseYear;
     if (owner != null) {
