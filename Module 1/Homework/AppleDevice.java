@@ -7,7 +7,7 @@ public abstract class AppleDevice implements Comparable<AppleDevice> {
   private String model;
   private BigDecimal price;
   private int releaseYear;
-  private Customer owner;
+  private String owner;
 
   private final static RoundingMode ROUNDING_MODE = RoundingMode.HALF_UP;
   private final static int DECIMALS = 2;
@@ -67,14 +67,14 @@ public abstract class AppleDevice implements Comparable<AppleDevice> {
     }
   }
 
-  public Customer getOwner() {
+  public String getOwner() {
     return owner;
   }
 
-  public void sell(Customer newOwner) {
+  public void sell(String newOwner) {
     if (owner == null) {
       this.owner = newOwner;
-      newOwner.buyDevice(this);
+//      newOwner.buyDevice(this);
       AppleDevice.totalSold += 1;
     }
   }
@@ -87,11 +87,11 @@ public abstract class AppleDevice implements Comparable<AppleDevice> {
 
   @Override
   public String toString() {
-    String str = "\n\nDevice Model: " + model;
+    String str = "Device Model: " + model;
     str += "\nPrice: $" + price;
     str += "\nRelease Year: " + releaseYear;
     if (owner != null) {
-      str += "\nOwner: " + owner.getFullName();
+      str += "\nOwner: " + owner;
     }
     return str;
   }

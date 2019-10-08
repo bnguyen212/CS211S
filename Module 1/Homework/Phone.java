@@ -1,28 +1,28 @@
 public class Phone extends AppleDevice {
   // M2 HOMEWORK ENUM
-  private Screen screenSize;
+//  private Screen screenSize;
   private StorageCapacity storageCapacity;
   private Color color;
-  private Authentication authentication;
-  private Caller caller;
+//  private Authentication authentication;
+//  private Caller caller;
 
   public static final int DEFAULT_CAPACITY = 64;
 
   // M2 HOMEWORK ENUM
   public enum Color { SILVER, SPACE_GRAY, GOLD, MIDNIGHT_GREEN, ROSE_GOLD, BLACK, BLUE, WHITE, YELLOW, RED}
 
-  public Phone(String model, double price, Screen size, StorageCapacity capacity, Color color, Authentication auth, Caller caller) {
+  public Phone(String model, double price, StorageCapacity capacity, Color color) {
     super(model, price);
-    this.screenSize = size;
+//    this.screenSize = size;
     this.storageCapacity = capacity;
     this.color = color;
-    this.authentication = auth;
-    this.caller = caller;
+//    this.authentication = auth;
+//    this.caller = caller;
   }
 
-  public Phone(String model, double price, Screen size, StorageCapacity capacity, Color color, Authentication auth) {
-    this(model, price, size, capacity, color, auth, new CellularCaller());
-  }
+//  public Phone(String model, double price, Screen size, StorageCapacity capacity, Color color, Authentication auth) {
+//    this(model, price, size, capacity, color, auth, new CellularCaller());
+//  }
 
   /*
    * No setter methods as screen size, color, storage capacity, and authentication are not modifiable.
@@ -36,25 +36,27 @@ public class Phone extends AppleDevice {
     return color;
   }
 
-  public Screen getScreenSize() {
-    return screenSize;
-  }
+//  public Screen getScreenSize() {
+//    return screenSize;
+//  }
 
-  public Authentication getAuthentication() {
-    return authentication;
-  }
+//  public Authentication getAuthentication() {
+//    return authentication;
+//  }
 
-  public void call(String contactName) {
-    caller.call(contactName);
+  public String call(String contactName) {
+//    caller.call(contactName);
+	  return "Calling " + contactName;
+    
   }
 
   @Override
   public String toString() {
     String s = super.toString();
-    s += "\nScreen: " + screenSize;
+//    s += "\nScreen: " + screenSize;
     s += "\nColor: " + color;
     s += "\nCapacity: " + storageCapacity;
-    s += "\nAuthentication: " + authentication;
+//    s += "\nAuthentication: " + authentication;
     return s;
   }
 
@@ -66,9 +68,10 @@ public class Phone extends AppleDevice {
     if (obj instanceof Phone) {
       Phone device = (Phone) obj;
       Boolean check = super.equals(obj);
-      return check && device.screenSize.equals(screenSize)
-                   && device.storageCapacity.equals(storageCapacity)
-                   && device.authentication.equals(authentication);
+      return check 
+//    		  && device.screenSize.equals(screenSize)
+//            && device.authentication.equals(authentication)
+              && device.storageCapacity.equals(storageCapacity);
     }
     return false;
   }
