@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import java.util.stream.*;
 
 class CountryTester {
 
@@ -29,29 +30,35 @@ class CountryTester {
       System.out.println(ex.getMessage());
     }
 
-    System.out.println("There are " + countryMap.keySet().size() + " countries represented in the dataset.\n");
-
-    System.out.println("There are " + countryList.size() + " countries represented in the dataset.\n");
-
+    // Original query
     System.out.println("Which 5 countries have the lowest rate of primary school completion?\n");
     Collections.sort(countryList, Country.PRIMARY_SCHOOL_COMPLETION_COMPARATOR);
     printFirstFive(countryList);
 
-    System.out.println("Which 5 countries have the lowest rate of middle school completion?\n");
-    Collections.sort(countryList, Country.MIDDLE_SCHOOL_COMPLETION_COMPARATOR);
-    printFirstFive(countryList);
+    // Using stream
+    Stream<Country> countryStream = countryList.stream();
+    countryStream.sorted(Country.PRIMARY_SCHOOL_COMPLETION_COMPARATOR).map(c -> c.getName()).limit(5).forEach(System.out::println);
 
-    System.out.println("Which 5 countries have the lowest rate of high school completion?\n");
-    Collections.sort(countryList, Country.HIGH_SCHOOL_COMPLETION_COMPARATOR);
-    printFirstFive(countryList);
+    // System.out.println("There are " + countryMap.keySet().size() + " countries represented in the dataset.\n");
 
-    System.out.println("Which 5 countries have the highest drop in completion rate between primary school and middle school?\n");
-    Collections.sort(countryList, Collections.reverseOrder(Country.PRIMARY_MIDDLE_CONSISTENCY_COMPARATOR));
-    printFirstFive(countryList);
+    // System.out.println("There are " + countryList.size() + " countries represented in the dataset.\n");
 
-    System.out.println("Which 5 countries have the highest drop in completion rate between middle school and high school?\n");
-    Collections.sort(countryList, Collections.reverseOrder(Country.MIDDLE_HIGH_CONSISTENCY_COMPARATOR));
-    printFirstFive(countryList);
+
+    // System.out.println("Which 5 countries have the lowest rate of middle school completion?\n");
+    // Collections.sort(countryList, Country.MIDDLE_SCHOOL_COMPLETION_COMPARATOR);
+    // printFirstFive(countryList);
+
+    // System.out.println("Which 5 countries have the lowest rate of high school completion?\n");
+    // Collections.sort(countryList, Country.HIGH_SCHOOL_COMPLETION_COMPARATOR);
+    // printFirstFive(countryList);
+
+    // System.out.println("Which 5 countries have the highest drop in completion rate between primary school and middle school?\n");
+    // Collections.sort(countryList, Collections.reverseOrder(Country.PRIMARY_MIDDLE_CONSISTENCY_COMPARATOR));
+    // printFirstFive(countryList);
+
+    // System.out.println("Which 5 countries have the highest drop in completion rate between middle school and high school?\n");
+    // Collections.sort(countryList, Collections.reverseOrder(Country.MIDDLE_HIGH_CONSISTENCY_COMPARATOR));
+    // printFirstFive(countryList);
   }
 
   public static void printFirstFive(ArrayList<Country> list) {
